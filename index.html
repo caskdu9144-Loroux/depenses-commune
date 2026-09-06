@@ -38,7 +38,7 @@ const emptyData = () => ({version:2, names:{p1:'Charles',p2:'Virginie'}, fixed:[
 let data = emptyData(); let saveTimer = null;
 const $ = id => document.getElementById(id);
 const euro = n => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(Number(n)||0);
-const esc = s => String(s??'').replace(/[&<>'"]/g,c=>({'&':'&','<':'<','>':'>',"'":''','"':'"'}[c]));
+const esc = s => String(s??'').replace(/[&<>'"]/g,c=>({'&':'&','<':'<','>':'>',"'":''','"':'"'}
 function normalize(raw){const d=emptyData(); if(!raw||typeof raw!=='object')return d; d.names={...d.names,...(raw.names||{})}; d.fixed=Array.isArray(raw.fixed)?raw.fixed.map(x=>({id:x.id||crypto.randomUUID?.()||String(Date.now()+Math.random()),label:String(x.label||'Charge'),amount:Number(x.amount)||0,payer:x.payer==='p2'?'p2':'p1'})):[]; d.once=Array.isArray(raw.once)?raw.once.map(x=>({id:x.id||crypto.randomUUID?.()||String(Date.now()+Math.random()),label:String(x.label||'Dépense'),amount:Number(x.amount)||0,payer:x.payer==='p2'?'p2':'p1'})):[]; d.rent={amount:Number(raw.rent?.amount)||0,payer:raw.rent?.payer==='p2'?'p2':(raw.rent?.payer==='p1'?'p1':'')}; d.updatedAt=raw.updatedAt||null; return d}
 function payerName(k){return k==='p2'?data.names.p2:data.names.p1}
 function render(){
